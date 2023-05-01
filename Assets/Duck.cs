@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor.Timeline.Actions;
 using UnityEngine.Events;
 
 public class Duck : MonoBehaviour
@@ -108,6 +107,7 @@ public class Duck : MonoBehaviour
             transform.DOScale(new Vector3(2, 0.1f,2), 0.2f);
             isMoveAble = false;
             OnCarCollision.Invoke();
+            
             Invoke("Die", 3);
             SoundManager.Instance.playSFX(car);
         }else if (other.CompareTag("Coin"))
@@ -124,7 +124,6 @@ public class Duck : MonoBehaviour
                 Invoke("Die", 3);
                 SoundManager.Instance.playSFX(eagle);
             }
-           
         }
     }
 

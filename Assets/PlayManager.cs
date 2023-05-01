@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 public class PlayManager : MonoBehaviour
@@ -40,6 +41,7 @@ public class PlayManager : MonoBehaviour
         }
         
         OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
+        
     }
 
     private Terrain SpawnRandomTerrain(int zPos)
@@ -147,5 +149,15 @@ public class PlayManager : MonoBehaviour
         SpawnRandomTerrain(spawnPosition);
         
         OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
+    }
+    
+    public void Replay()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
