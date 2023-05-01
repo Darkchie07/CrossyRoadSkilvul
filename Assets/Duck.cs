@@ -9,6 +9,10 @@ using UnityEngine.Events;
 
 public class Duck : MonoBehaviour
 {
+    [SerializeField] private AudioClip jump;
+    [SerializeField] private AudioClip car;
+    [SerializeField] private AudioClip coincollect;
+    [SerializeField] private AudioClip eagle;
     [SerializeField, Range(0, 1)] private float moveDuration;
     [SerializeField, Range(0, 1)] private float jumpHeight;
     [SerializeField] private int leftMoveLimit;
@@ -79,6 +83,7 @@ public class Duck : MonoBehaviour
         transform.DOJump(targetPosition, jumpHeight, 1, moveDuration).onComplete
              = BroadcastPositionOnJumpEnd;
         transform.forward = direction;
+        SoundManager.Instance.playSFX(jump);
     }
 
     public void SetMoveable(bool value)
@@ -104,17 +109,20 @@ public class Duck : MonoBehaviour
             isMoveAble = false;
             OnCarCollision.Invoke();
             Invoke("Die", 3);
+            SoundManager.Instance.playSFX(car);
         }else if (other.CompareTag("Coin"))
         {
             var coin = other.GetComponent<Coin>();
             OnGetCoin.Invoke(coin.Value);
             coin.Colleted();
+            SoundManager.Instance.playSFX(coincollect);
         }else if (other.CompareTag("Eagle"))
         {
             if (this.transform != other.transform)
             { 
                 this.transform.SetParent(other.transform);
                 Invoke("Die", 3);
+                SoundManager.Instance.playSFX(eagle);
             }
            
         }
